@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday My Love ❤️</title>
+    <!-- Elegant Font Imports -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Cormorant+Garamond:wght@300;400;600&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* PREMIUM COLOR PALETTE & TYPOGRAPHY */
+        :root {
+            --color-gold: #B8860B; /* Dark Goldenrod / Muted Gold */
+            --color-accent: #8B0000; /* Deep Wine Red / Bordeaux */
+            --color-text-dark: #333333;
+            --color-text-light: #F5F5F5;
+            --color-background-start: #0A1931; /* Deep Navy Blue */
+            --color-background-end: #1F2833; /* Charcoal */
+            --color-card-bg: #F5F5DC; /* Beige/Cream */
+            --font-serif-display: 'Playfair Display', serif;
+            --font-body: 'Cormorant Garamond', serif;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: linear-gradient(135deg, var(--color-background-start) 0%, var(--color-background-end) 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        /* --- Landing Page Styling --- */
+        .landing {
+            text-align: center;
+            color: var(--color-text-light);
+            padding: 100px 20px;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .landing h1 {
+            font-family: 'Cinzel', serif; /* Use a regal font for the main title */
+            font-size: 4em;
+            margin-bottom: 25px;
+            text-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+            letter-spacing: 3px;
+        }
+
+        .landing p {
+            font-size: 1.6em;
+            margin-bottom: 50px;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .start-btn {
+            background: var(--color-gold);
+            color: var(--color-background-start);
+            border: 2px solid var(--color-gold);
+            padding: 18px 50px;
+            font-size: 1.4em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .start-btn:hover {
+            transform: scale(1.05);
+            background: var(--color-accent);
+            color: var(--color-text-light);
+            border-color: var(--color-accent);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .countdown-container {
+            display: none;
+            padding-bottom: 50px;
+        }
+
+        /* --- Progress Bar --- */
+        .progress-bar {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            margin-bottom: 40px;
+            overflow: hidden;
+            z-index: 100;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--color-gold); 
+            transition: width 0.5s ease;
+            border-radius: 8px;
+        }
+
+        .cards-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+        }
+
+        /* --- Card Styling --- */
+        .card {
+            background: var(--color-card-bg);
+            border-radius: 15px;
+            padding: 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            text-align: center;
+            opacity: 0;
+            transform: translateY(60px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+            border-left: 8px solid var(--color-gold); /* Gold accent stripe */
+        }
+
+        .card.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card-number {
+            color: var(--color-gold);
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .card-icon {
+            font-size: 5em;
+            margin-bottom: 25px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-title {
+            font-family: var(--font-serif-display);
+            color: var(--color-text-dark);
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .card-message {
+            color: #555;
+            font-size: 1.4em;
+            line-height: 1.8;
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+
+        /* --- Final Card (Surprise 10) --- */
+        .final-card {
+            background: linear-gradient(135deg, var(--color-accent) 0%, #4B0082 100%); /* Deep Red to Indigo */
+            color: white;
+            min-height: 480px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border: none;
+            box-shadow: 0 20px 70px rgba(0, 0, 0, 0.6);
+        }
+
+        .final-card .card-number,
+        .final-card .card-title,
+        .final-card .card-message {
+            color: var(--color-text-light);
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.6);
+        }
+        
+        .final-card .card-number {
+            font-family: 'Cinzel', serif;
+            font-size: 1.6em;
+        }
+        
+        .final-card .card-icon {
+            font-size: 6em;
+        }
+
+        .scroll-hint {
+            text-align: center;
+            color: var(--color-gold);
+            margin-top: 40px;
+            font-size: 1.3em;
+            font-weight: 600;
+            animation: bounce 2s infinite;
+        }
+
+        /* Animations & Media Queries */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: var(--color-gold); 
+            animation: confetti-fall 3s linear infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .landing h1 {
+                font-size: 3em;
+            }
+            .card {
+                padding: 30px 20px;
+            }
+            .card-title {
+                font-size: 2em;
+            }
+            .card-message {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- LANDING SECTION -->
+        <div class="landing" id="landing">
+            <h1>🎉 Happy Birthday! 🎉</h1>
+            <p>I have 10 special surprises for you...</p>
+            <button class="start-btn" onclick="startCountdown()">Start the Journey</button>
+        </div>
+
+        <!-- COUNTDOWN/CARD SECTION -->
+        <div class="countdown-container" id="countdownContainer">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="cards-wrapper" id="cardsWrapper">
+                
+                <!-- CARD 1: YOUR SMILE (UNCHANGED) -->
+                <div class="card" data-card="1">
+                    <div class="card-number">Surprise 1 of 10</div>
+                    <div class="card-icon">😊</div>
+                    <div class="card-title">Your Smile</div>
+                    <div class="card-message">Your smile lights up my entire world. Every time I see it, my day becomes instantly better. Never stop smiling, beautiful.</div>
+                </div>
+
+                <!-- CARD 2: FUTURE DREAMS (NEW THEME) -->
+                <div class="card" data-card="2">
+                    <div class="card-number">Surprise 2 of 10</div>
+                    <div class="card-icon">🗺️</div>
+                    <div class="card-title">Future Dreams</div>
+                    <div class="card-message">Thinking about all the amazing things we're going to achieve together the trips, the goals, the quiet mornings fills me with excitement. You're my co-pilot in life's grand adventure.</div>
+                </div>
+
+                <!-- CARD 3: YOUR STRENGTH (MESSAGE UPDATED) -->
+                <div class="card" data-card="3">
+                    <div class="card-number">Surprise 3 of 10</div>
+                    <div class="card-icon">💪</div>
+                    <div class="card-title">Your Strength</div>
+                    <div class="card-message">I admire how strong and confident you are in yourself. Your belief and passion inspire me every single day. I love it, really.</div>
+                </div>
+
+                <!-- CARD 4: MOVIE TIME (TITLE & MESSAGE UPDATED) -->
+                <div class="card" data-card="4">
+                    <div class="card-number">Surprise 4 of 10</div>
+                    <div class="card-icon">🎬</div>
+                    <div class="card-title">Movie Time</div>
+                    <div class="card-message">Remember our first movie, Final Destination? Baby, I love watching movies with you so much, really! Remember how we got distracted while watching it? xD Yeah, lol, I love you.</div>
+                </div>
+
+                <!-- CARD 5: YOUR KINDNESS (UNCHANGED) -->
+                <div class="card" data-card="5">
+                    <div class="card-number">Surprise 5 of 10</div>
+                    <div class="card-icon">💝</div>
+                    <div class="card-title">Your Kindness</div>
+                    <div class="card-message">The way you care for others and show kindness to everyone around you makes me fall in love with you more every day.</div>
+                </div>
+
+                <!-- CARD 6: OUR SONG (MESSAGE UPDATED) -->
+                <div class="card" data-card="6">
+                    <div class="card-number">Surprise 6 of 10</div>
+                    <div class="card-icon">🎵</div>
+                    <div class="card-title">Our Song</div>
+                    <div class="card-message">Every time I listen to our Playlist, I think of you and smile. Music will never sound the same without you in my life.</div>
+                </div>
+
+                <!-- CARD 7: YOU MAKE LIFE COLORFUL (UNCHANGED) -->
+                <div class="card" data-card="7">
+                    <div class="card-number">Surprise 7 of 10</div>
+                    <div class="card-icon">🌈</div>
+                    <div class="card-title">You Make Life Colorful</div>
+                    <div class="card-message">Before you, life was black and white. You brought color, joy, and meaning to everything. You're my rainbow after every storm.</div>
+                </div>
+
+                <!-- CARD 8: YOUR LAUGH (MESSAGE UPDATED) -->
+                <div class="card" data-card="8">
+                    <div class="card-number">Surprise 8 of 10</div>
+                    <div class="card-icon">😂</div>
+                    <div class="card-title">Your Laugh</div>
+                    <div class="card-message">Your laugh is contagious and beautiful. Making you laugh is one of my favorite things in the world. I promise to keep making you laugh forever, and I love your teefs and gums!</div>
+                </div>
+
+                <!-- CARD 9: EVERY MOMENT WITH YOU (MESSAGE UPDATED) -->
+                <div class="card" data-card="9">
+                    <div class="card-number">Surprise 9 of 10</div>
+                    <div class="card-icon">🌙</div>
+                    <div class="card-title">Every Moment With You</div>
+                    <div class="card-message">Whether we are playing, texting, calling, or on video chat, or just sitting idle, every moment with you is precious to me. You make ordinary days extraordinary.</div>
+                </div>
+
+                <!-- FINAL CARD 10: HAPPY BIRTHDAY (UNCHANGED) -->
+                <div class="card final-card" data-card="10">
+                    <div class="card-number">💖 FINAL SURPRISE 💖</div>
+                    <div class="card-icon">🎂</div>
+                    <div class="card-title">Happy Birthday, My Love My Mrs Aalu!</div>
+                    <div class="card-message">Thank you for being you. Thank you for being mine. You deserve all the happiness in the world today and every day. I love you more than words can express. Here's to another year of making beautiful memories together! 🎉❤️✨</div>
+                </div>
+            </div>
+            <div class="scroll-hint">↓ Scroll to reveal more surprises ↓</div>
+        </div>
+    </div>
+    
+    <!-- JavaScript (Kept the original logic, updated confetti colors) -->
+    <script>
+        let revealedCards = 0;
+        function startCountdown() {
+            document.getElementById('landing').style.display = 'none';
+            document.getElementById('countdownContainer').style.display = 'block';
+            setTimeout(() => {
+                revealCard(0);
+            }, 300);
+        }
+        function revealCard(index) {
+            const cards = document.querySelectorAll('.card');
+            if (index < cards.length) {
+                cards[index].classList.add('revealed');
+                revealedCards = index + 1;
+                updateProgress();
+                if (index === cards.length - 1) {
+                    createConfetti();
+                    document.querySelector('.scroll-hint').style.display = 'none';
+                }
+            }
+        }
+        function updateProgress() {
+            const progress = (revealedCards / 10) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+        
+        window.addEventListener('scroll', () => {
+            const cards = document.querySelectorAll('.card');
+            const windowHeight = window.innerHeight;
+            cards.forEach((card, index) => {
+                const cardTop = card.getBoundingClientRect().top;
+                // Reveal card when it's 70% visible
+                if (cardTop < windowHeight * 0.7 && !card.classList.contains('revealed')) {
+                    revealCard(index);
+                }
+            });
+        });
+
+        function createConfetti() {
+            // Confetti colors match the premium theme
+            const colors = ['#B8860B', '#8B0000', '#F5F5F5', '#FFD700', '#FFFFFF']; 
+            for (let i = 0; i < 150; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.top = -10 + 'px';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDelay = Math.random() * 2 + 's';
+                    confetti.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                    document.body.appendChild(confetti);
+                    setTimeout(() => confetti.remove(), 7000);
+                }, i * 20);
+            }
+        }
+    </script>
+</body>
+</html>
